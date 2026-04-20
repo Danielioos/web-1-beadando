@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JavaScript CRUD</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="javas.css">
+</head>
+
+<body>
+
+<h1>JavaScript CRUD - Mozi</h1>
+
+<nav>
+<div class="vissza">
+    <button>Vissza</button>
+</div>
+</nav>
+
+<main>
+  <div class="doboz">
+    <h3>Mozik kezelése: </h3>
+    <div class="form">
+      <input id="nev" placeholder="Mozi neve">
+      <input id="cim" placeholder="Cím">
+      <input id="tel" placeholder="Telefon">
+      <button>Mentés</button>
+    </div>
+    <hr>
+    <div id="list"></div>
+  </div>
+</main>
+
+
+<script>
+  let mozik = [];
+  let editIndex = null;
+
+  const list = document.getElementById("list");
+  const nevInput = document.getElementById("nev");
+  const cimInput = document.getElementById("cim");
+  const telInput = document.getElementById("tel");
+
+  async function loadData() {
+    try {
+      const res = await fetch("mozi.txt");
+      const text = await res.text();
+
+      const sorok = text.split("\n");
+
+      sorok.forEach((sor, index) => {
+        if (index === 0 || sor.trim() === "") return;
+
+        const adat = sor.trim().split(/\s{2,}|\t/);
+
+        mozik.push({
+          id: adat[0],
+          nev: adat[1],
+          cim: adat[3],
+          telefon: adat[4] || ""
+        });
+      });
+
+      render();
+    } catch (err) {
+      console.error("Hiba betöltéskor:", err);
+    }
+  }
+
+  function render() {
+    list.innerHTML = "";
+
+    mozik.forEach((mozi, index) => {
+      const div = document.createElement("div");
+
+      const nev = document.createElement("p");
+      nev.innerHTML = "<b>" + mozi.nev + "</b>";
+
+      const cim = document.createElement("p");
+      cim.textContent = "Cím: " + mozi.cim;
+
+      const tel = document.createElement("p");
+      tel.textContent = "Telefon: " + (mozi.telefon || "-");
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Szerkesztés";
+      editBtn.addEventListener("click", () => edit(index));
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Törlés";
+      delBtn.addEventListener("click", () => removeItem(index));
+
+      div.appendChild(nev);
+      div.appendChild(cim);
+      div.appendChild(tel);
+      div.appendChild(editBtn);
+      div.appendChild(delBtn);
+
+      list.appendChild(div);
+      list.appendChild(document.createElement("hr"));
+    });
+  }
+
+  function save() {
+    const nev = nevInput.value.trim();
+    const cim = cimInput.value.trim();
+    const tel = telInput.value.trim();
+
+    if (!nev || !cim) {
+      alert("A név és cím kötelező!");
+      return;
+    }
+
+    if (editIndex === null) {
+      mozik.push({ nev, cim, telefon: tel });
+    } else {
+      mozik[editIndex] = { nev, cim, telefon: tel };
+      editIndex = null;
+    }
+
+    nevInput.value = "";
+    cimInput.value = "";
+    telInput.value = "";
+
+    render();
+  }
+
+  function edit(index) {
+    const mozi = mozik[index];
+
+    nevInput.value = mozi.nev;
+    cimInput.value = mozi.cim;
+    telInput.value = mozi.telefon;
+
+    editIndex = index;
+  }
+
+  function removeItem(index) {
+    if (confirm("Biztos törlöd?")) {
+      mozik.splice(index, 1);
+      render();
+    }
+  }
+
+  document.querySelector(".form button").addEventListener("click", save);
+  document.querySelector(".vissza button").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+
+  loadData();
+
+</script>
+</body>
+</html>

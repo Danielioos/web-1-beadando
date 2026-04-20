@@ -9,6 +9,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +25,7 @@ h1 {
 }
 
 h2 {
-    margin-top: 120px;
+    margin: 20px 0;
     font-size: 30px;
     color: #c6b6b6;
     text-align: center;
@@ -45,7 +46,7 @@ main {
     flex: 1;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+
     padding: 20px;
 }
 
@@ -69,7 +70,7 @@ main {
 
 .login {
     flex: 1;
-    margin-top: -30px;
+    margin-top: 0px;
     text-align: left;
 }
 
@@ -138,8 +139,12 @@ footer {
     }
 
     h2 {
-        margin-top: 60px;
+        margin: 20px 0;
         font-size: 22px;
+    }
+
+    main{
+        align-items: flex-start;
     }
 
     .doboz {
