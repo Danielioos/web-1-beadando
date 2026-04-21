@@ -9,22 +9,22 @@
 
 <body>
 
-<h1>JavaScript CRUD - Mozi</h1>
+<h1>JavaScript CRUD - film</h1>
 
 <nav>
-<div class="vissza">
+  <div class="vissza">
     <button>Vissza</button>
-</div>
+  </div>
 </nav>
 
 <main>
   <div class="doboz">
-    <h3>Mozik kezelése: </h3>
+    <h3>filmk kezelése: </h3>
     <div class="form">
       <input id="ide" placeholder="ID">
-      <input id="nev" placeholder="Mozi neve">
-      <input id="cim" placeholder="Varos">
-      <input id="fer" placeholder="Ferohely">
+      <input id="nev" placeholder="Film neve">
+      <input id="ev" placeholder="Kiadás">
+      <input id="per" placeholder="Hossz">
       <button>Mentés</button>
     </div>
     <hr>
@@ -34,18 +34,20 @@
 
 
 <script>
-  let mozik = [];
+  let filmek = [];
   let editIndex = null;
 
   const list = document.getElementById("list");
   const nevInput = document.getElementById("nev");
-  const cimInput = document.getElementById("cim");
+  const evInput = document.getElementById("ev");
   const ideInput = document.getElementById("ide");
-  const ferInput = document.getElementById("fer");
+  const perInput = document.getElementById("per");
 
   async function loadData() {
     try {
-      const res = await fetch("mozi.txt");
+      filmek = [];
+
+      const res = await fetch("film.txt");
       const text = await res.text();
 
       const sorok = text.split("\n");
@@ -55,11 +57,11 @@
 
         const adat = sor.trim().split(";");
 
-        mozik.push({
+        filmek.push({
           id: adat[0],
           nev: adat[1],
-          cim: adat[2],
-          ferohely: adat[3]
+          ev: adat[2],
+          perohely: adat[3]
         });
       });
 
@@ -72,20 +74,20 @@
   function render() {
     list.innerHTML = "";
 
-    mozik.forEach((mozi, index) => {
+    filmek.forEach((film, index) => {
       const div = document.createElement("div");
 
       const id = document.createElement("p");
-      id.textContent = "ID: " + mozi.id;
+      id.textContent = "ID: " + film.id;
 
       const nev = document.createElement("p");
-      nev.innerHTML = "<b>" + mozi.nev + "</b>";
+      nev.innerHTML = "<b>" + film.nev + "</b>";
 
-      const cim = document.createElement("p");
-      cim.textContent = "Cím: " + mozi.cim;
+      const ev = document.createElement("p");
+      ev.textContent = "Kiadás: " + film.ev;
 
       const tel = document.createElement("p");
-      tel.textContent = "Ferohely: " + mozi.ferohely;
+      tel.textContent = "Perc: " + film.perohely;
 
       const editBtn = document.createElement("button");
       editBtn.textContent = "Szerkesztés";
@@ -97,7 +99,7 @@
 
       div.appendChild(id);
       div.appendChild(nev);
-      div.appendChild(cim);
+      div.appendChild(ev);
       div.appendChild(tel);
       div.appendChild(editBtn);
       div.appendChild(delBtn);
@@ -110,17 +112,17 @@
   function save() {
     const id = ideInput.value.trim();
     const nev = nevInput.value.trim();
-    const cim = cimInput.value.trim();
-    const tel = ferInput.value.trim();
+    const ev = evInput.value.trim();
+    const tel = perInput.value.trim();
 
-    const vanIlyen = mozik.some((m, i) => m.id === id && i !== editIndex);
+    const vanIlyen = filmek.some((m, i) => m.id === id && i !== editIndex);
 
     if (vanIlyen) {
       alert("Ez az ID már létezik!");
       return;
     }
 
-    if (!nev || !cim) {
+    if (!nev || !ev) {
       alert("A név és cím kötelező!");
       return;
     }
@@ -131,34 +133,34 @@
     }
 
     if (editIndex === null) {
-      mozik.push({ id, nev, cim, ferohely: tel });
+      filmek.push({ id, nev, ev, perohely: tel });
     } else {
-      mozik[editIndex] = { id, nev, cim, ferohely: tel };
+      filmek[editIndex] = { id, nev, ev, perohely: tel };
       editIndex = null;
     }
 
     ideInput.value = "";
     nevInput.value = "";
-    cimInput.value = "";
-    ferInput.value = "";
+    evInput.value = "";
+    perInput.value = "";
 
     render();
   }
 
   function edit(index) {
-    const mozi = mozik[index];
+    const film = filmek[index];
 
-    ideInput.value = mozi.id;
-    nevInput.value = mozi.nev;
-    cimInput.value = mozi.cim;
-    ferInput.value = mozi.ferohely;
+    ideInput.value = film.id;
+    nevInput.value = film.nev;
+    evInput.value = film.ev;
+    perInput.value = film.perohely;
 
     editIndex = index;
   }
 
   function removeItem(index) {
     if (confirm("Biztos törlöd?")) {
-      mozik.splice(index, 1);
+      filmek.splice(index, 1);
       render();
     }
   }

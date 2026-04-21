@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("https://www.baltana.com/files/wallpapers-16/Digital-Art-HD-4K-Wallpapers-41715.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: balck;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1{
+    color: white;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+.doboz {
+    background: white;
+    padding: 20px;
+    width: 600px;
+    border-radius: 10px;
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    padding: 8px;
+}
+
+.vissza button{
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 8px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.item {
+    padding: 10px;
+}
