@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Web programozás</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="indstyle.css">
 </head>
+
+
 <body>
+<h1>Web programozás - 1 Előadás Házi feladat</h1>
+
+<nav>
+    <a href="javascript.html">Mozik</a>
+    <a href="fetchapi.html">Fetch API</a>
+    <a href="oojs.html">OOJS</a>
+    <a href="react.html">React</a>
+    <div class ="logout">
+    <button onclick="button()">Kijelentkezés</button>
+    </div>
+</nav>
+
+
+<main>
+    <div class="doboz">
+
+        <h3>Moziműsorok:</h3>
+
+        <div class="film">
+            <p>Film: Batman</p>
+            <p>Idő: 20:00</p>
+            <button>Törlés</button>
+        </div>
+
+        <div class="film">
+            <p>Film: Spiderman</p>
+            <p>Idő: 18:00</p>
+            <button>Törlés</button>
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<footer>
+    Gombár Dániel - ITCK81 és Drobni Zsomor - EV4GAC
+</footer>
+
+
+
+<script> //kamukijelentkezes
+    function button(){
+        window.location.href = "bejelentkezes.html";
+    }
+</script>
 
 </body>
 </html>

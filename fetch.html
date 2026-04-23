@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mozi CRUD</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="fetchcs.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center;">Mozi Adatbázis</h1>
+
+<nav>
+  <div class="vissza">
+    <button onclick="window.location.href='index.html'">Vissza</button>
+  </div>
+</nav>
+
+<main>
+  <div class="doboz">
+
+    <div class="form">
+      <input id="nev" placeholder="Mozi neve">
+      <input id="varos" placeholder="Város">
+      <input id="ferohely" placeholder="Férőhely">
+      <button id="mentes">Mentés</button>
+    </div>
+
+    <hr>
+
+    <div id="list"></div>
+
+  </div>
+</main>
+
+<script>
+
+  let editId = null;
+
+
+  async function load() {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    try {
+      const res = await fetch("CRUD.php?action=get");
+      const data = await res.json();
+
+      if (!data || data.length === 0) {
+        list.innerHTML = "<p>Nincs adat.</p>";
+        return;
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        const m = data[i];
+
+        list.innerHTML += `
+        <div class="item">
+          <b>${m.nev}</b><br>
+          Város: ${m.varos}<br>
+          Férőhely: ${m.ferohely}<br>
+
+          <button onclick="edit(${m.id}, '${m.nev}', '${m.varos}', ${m.ferohely})">Szerkeszt</button>
+          <button onclick="torles(${m.id})">Törlés</button>
+        </div>
+        <hr>
+      `;
+      }
+
+    } catch (err) {
+      console.log("Hiba betöltéskor:", err);
+    }
+  }
+
+
+  async function save() {
+
+    let nev = document.getElementById("nev").value.trim();
+    let varos = document.getElementById("varos").value.trim();
+    let ferohely = document.getElementById("ferohely").value;
+
+    if (nev === "" || varos === "") {
+      alert("Add meg a mezőket!");
+      return;
+    }
+
+    if (ferohely === "" || isNaN(ferohely)) {
+      alert("A férőhely szám legyen!");
+      return;
+    }
+
+    ferohely = Number(ferohely);
+
+
+    const res = await fetch("CRUD.php?action=get");
+    const adatok = await res.json();
+
+    for (let i = 0; i < adatok.length; i++) {
+      if (
+              adatok[i].nev === nev &&
+              adatok[i].varos === varos &&
+              adatok[i].id != editId
+      ) {
+        alert("Ez a mozi már létezik!");
+        return;
+      }
+    }
+
+    let url = "CRUD.php?action=add";
+    if (editId !== null) {
+      url = "CRUD.php?action=update";
+    }
+
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: editId,
+        nev: nev,
+        varos: varos,
+        ferohely: ferohely
+      })
+    });
+
+
+    document.getElementById("nev").value = "";
+    document.getElementById("varos").value = "";
+    document.getElementById("ferohely").value = "";
+
+    editId = null;
+
+    load();
+  }
+
+
+
+  function edit(id, nev, varos, ferohely) {
+    editId = id;
+
+    document.getElementById("nev").value = nev;
+    document.getElementById("varos").value = varos;
+    document.getElementById("ferohely").value = ferohely;
+  }
+
+
+
+  function torles(id) {
+    if (!confirm("Biztos törlöd?")) return;
+
+    fetch("CRUD.php?action=delete&id=" + id)
+            .then(() => load());
+  }
+
+
+
+  document.getElementById("mentes").addEventListener("click", save);
+  load();
+
+</script>
+
+</body>
+</html>
