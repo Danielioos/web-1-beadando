@@ -9,6 +9,12 @@
 
 <h1>Filmek Lista</h1>
 
+<nav>
+    <div class="vissza">
+        <button onclick="window.location.href='index.html'">Vissza</button>
+    </div>
+</nav>
+
 <input id="cim" placeholder="Cím">
 <input id="ev" placeholder="Év">
 <button id="addBtn">Hozzáadás</button>
@@ -46,7 +52,7 @@
         }
 
         if (isNaN(ev)) {
-            alert("Az év legyen szám!");
+            alert("Az év csak szám lehet!");
             return;
         }
 
