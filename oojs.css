@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("https://www.baltana.com/files/wallpapers-16/Digital-Art-HD-4K-Wallpapers-41715.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 40px;
+}
+
+
+input {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 8px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #c77dff;
+}
+
+
+#lista {
+    margin-top: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+#lista div {
+    background: rgba(255,255,255,0.85);
+    color: black;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#lista button {
+    background: #ff4d6d;
+}
+
+#lista button:hover {
+    background: #c77dff;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+
+    #lista div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

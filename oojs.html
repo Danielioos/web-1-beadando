@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Film lista</title>
+    <link rel="stylesheet" href="oojs.css">
+</head>
+<body>
+
+<h1>Filmek Lista</h1>
+
+<input id="cim" placeholder="Cím">
+<input id="ev" placeholder="Év">
+<button id="addBtn">Hozzáadás</button>
+
+<hr>
+
+<div id="lista"></div>
+
+<script>
+
+    class Film {
+        constructor(cim, ev) {
+            this.id = Date.now();
+            this.cim = cim;
+            this.ev = ev;
+        }
+    }
+
+    const filmek = [];
+
+    const listaElem = document.getElementById("lista");
+    const cimInput = document.getElementById("cim");
+    const evInput = document.getElementById("ev");
+    const addBtn = document.getElementById("addBtn");
+
+    addBtn.addEventListener("click", hozzaad);
+
+    function hozzaad() {
+        const cim = cimInput.value.trim();
+        const ev = evInput.value.trim();
+
+        if (!cim || !ev) {
+            alert("Tölts ki mindent!");
+            return;
+        }
+
+        if (isNaN(ev)) {
+            alert("Az év legyen szám!");
+            return;
+        }
+
+        filmek.push(new Film(cim, Number(ev)));
+
+        cimInput.value = "";
+        evInput.value = "";
+
+        render();
+    }
+
+    function torol(id) {
+        const index = filmek.findIndex(f => f.id === id);
+        if (index !== -1) {
+            filmek.splice(index, 1);
+            render();
+        }
+    }
+
+    function render() {
+        listaElem.innerHTML = "";
+
+        filmek.forEach(film => {
+            const div = document.createElement("div");
+
+            const szoveg = document.createElement("span");
+            szoveg.textContent = `${film.cim} (${film.ev})`;
+
+            const btn = document.createElement("button");
+            btn.textContent = "Törlés";
+            btn.addEventListener("click", () => torol(film.id));
+
+            div.appendChild(szoveg);
+            div.appendChild(btn);
+
+            listaElem.appendChild(div);
+        });
+    }
+
+
+    filmek.push(new Film("Interstellar", 2014));
+    filmek.push(new Film("Inception", 2010));
+
+    render();
+
+</script>
+
+</body>
+</html>
