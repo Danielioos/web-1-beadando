@@ -11,7 +11,6 @@ body {
     min-height: 100vh;
 }
 
-
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -19,20 +18,30 @@ h1 {
 }
 
 
+nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
 input {
     padding: 10px;
-    margin: 5px;
+    margin: 10px auto;
     border-radius: 8px;
     border: none;
     font-size: 16px;
+    width: 300px;
+    display: block;
 }
 
 button {
     padding: 10px 15px;
-    margin: 5px;
+    margin: 10px auto;
     border-radius: 8px;
     border: none;
     background: #ff4d6d;
+    font-size: 16px;
     color: white;
     cursor: pointer;
     transition: 0.2s;
@@ -42,6 +51,15 @@ button:hover {
     background: #c77dff;
 }
 
+#addBtn {
+    width: 300px;
+    display: block;
+}
+
+.vissza button {
+    width: auto;
+    padding: 8px 20px;
+}
 
 #lista {
     margin-top: 20px;
@@ -50,7 +68,6 @@ button:hover {
     margin-right: auto;
 }
 
-
 #lista div {
     background: rgba(255,255,255,0.85);
     color: black;
@@ -58,11 +75,16 @@ button:hover {
     margin-bottom: 10px;
     border-radius: 12px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
+#lista span {
+    flex: 1;
+}
+
 #lista button {
+    width: auto;
+    padding: 6px 12px;
     background: #ff4d6d;
 }
 
@@ -78,5 +100,10 @@ button:hover {
     #lista div {
         flex-direction: column;
         gap: 10px;
+    }
+
+    input,
+    #addBtn {
+        width: 80%;
     }
 }
