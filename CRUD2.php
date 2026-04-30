@@ -14,7 +14,7 @@ if (isset($_GET["action"])) {
 
 if ($action == "get") {
 
-    $sql = "SELECT * FROM mozi_txt";
+    $sql = "SELECT * FROM eloadas_txt";
     $result = $conn->query($sql);
 
     $adatok = array();
@@ -41,12 +41,14 @@ if ($action == "add") {
         exit;
     }
 
-    $nev = $conn->real_escape_string($data["nev"]);
-    $varos = $conn->real_escape_string($data["varos"]);
-    $ferohely = intval($data["ferohely"]);
+    $filmid = intval($data["filmid"]);
+    $moziid = intval($data["moziid"]);
+    $datum = $conn->real_escape_string($data["datum"]);
+    $nezoszam = intval($data["nezoszam"]);
+    $bevetel = intval($data["bevetel"]);
 
-    $sql = "INSERT INTO mozi_txt (nev, varos, ferohely)
-            VALUES ('$nev', '$varos', $ferohely)";
+    $sql = "INSERT INTO eloadas_txt (filmid, moziid, datum, nezoszam, bevetel)
+            VALUES ($filmid, $moziid, '$datum', $nezoszam, $bevetel)";
 
     if ($conn->query($sql)) {
         echo "OK";
@@ -67,7 +69,7 @@ if ($action == "delete") {
 
     $id = intval($_GET["id"]);
 
-    $sql = "DELETE FROM mozi_txt WHERE id=$id";
+    $sql = "DELETE FROM eloadas_txt WHERE id=$id";
 
     if ($conn->query($sql)) {
         echo "OK";
@@ -77,6 +79,7 @@ if ($action == "delete") {
 
     exit;
 }
+
 
 if ($action == "update") {
 
@@ -89,12 +92,14 @@ if ($action == "update") {
     }
 
     $id = intval($data["id"]);
-    $nev = $conn->real_escape_string($data["nev"]);
-    $varos = $conn->real_escape_string($data["varos"]);
-    $ferohely = intval($data["ferohely"]);
+    $filmid = intval($data["filmid"]);
+    $moziid = intval($data["moziid"]);
+    $datum = $conn->real_escape_string($data["datum"]);
+    $nezoszam = intval($data["nezoszam"]);
+    $bevetel = intval($data["bevetel"]);
 
-    $sql = "UPDATE mozi_txt 
-            SET nev='$nev', varos='$varos', ferohely=$ferohely
+    $sql = "UPDATE eloadas_txt 
+            SET filmid=$filmid, moziid=$moziid, datum='$datum', nezoszam=$nezoszam, bevetel=$bevetel
             WHERE id=$id";
 
     if ($conn->query($sql)) {

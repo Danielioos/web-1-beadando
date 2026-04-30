@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>SPA React</title>
+    <link rel="stylesheet" href="spa.css">
+</head>
+<body>
+
+<h1>SPA React alkalmazás</h1>
+
+<nav>
+    <div class="vissza">
+        <button>Vissza</button>
+    </div>
+</nav>
+
+    <button onclick="showPage('app1')">Tic-Tac-Toe</button>
+    <button onclick="showPage('app2')">Todo</button>
+
+
+<div id="content"></div>
+
+<script>
+  function showPage(page) {
+    const content = document.getElementById("content");
+
+    if (page === "app1") {
+      content.innerHTML = `<iframe src="react/app1/index.html"></iframe>`;
+    } else {
+      content.innerHTML = `<iframe src="react/app2/index.html"></iframe>`;
+    }
+  }
+
+  document.querySelector(".vissza button").addEventListener("click", () => {
+      window.location.href = "index.html";
+  });
+</script>
+
+</body>
+</html>
