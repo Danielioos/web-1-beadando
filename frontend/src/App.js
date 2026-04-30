@@ -14,7 +14,7 @@ function App() {
 
   const [szerkesztId, setSzerkesztId] = useState(null);
 
-  const API = "/webprog-1-beadando/CRUD2.php";
+  const API = "../CRUD2.php";
 
   const adatokLekerse = async () => {
     const res = await fetch(`${API}?action=get`);
@@ -100,7 +100,7 @@ function App() {
           <h1>Mozi CRUD (Axios)</h1>
           <button
               className="vissza"
-              onClick={() => window.location.href = "/webprog-1-beadando/index.html"}
+              onClick={() => window.location.href = "../index.html"}
           >
             Vissza
           </button>

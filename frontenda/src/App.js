@@ -74,7 +74,7 @@ function App() {
           <button
               className="vissza"
               onClick={() =>
-                  window.location.href = "http://localhost/webprog-1-beadando/index.html"
+                  window.location.href = "../index.html"
               }
           >
             Vissza

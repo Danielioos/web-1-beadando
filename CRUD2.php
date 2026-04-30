@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "Mozik");
+$conn = new mysqli("localhost", "admin10", "admin10jelszo", "admin10");
 
 if ($conn->connect_error) {
     die("Kapcsolódási hiba: " . $conn->connect_error);
