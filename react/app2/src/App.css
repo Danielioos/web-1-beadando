@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+}
